@@ -1,0 +1,2 @@
+module WorkingPricesHelper
+end
