@@ -11,7 +11,7 @@
       <tr>
         <td><%= show_date_format(timesheet.date_of_entry) %>:</td>
         <td><%= "#{show_time_format(timesheet.start_time)} - #{show_time_format(timesheet.finish_time)}" %></td>
-        <td><%= "$#{timesheet.total_price.round(2)}" %></td>
+        <td><%= "$#{timesheet.total_price.to_f.round(2)}" %></td>
      </tr>
     <% end %>
   </tbody>

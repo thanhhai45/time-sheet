@@ -3,19 +3,22 @@ services:
   db:
     image: postgres
     volumes:
-      - ./tmp/db:/var/lib/postgresql/data
+      - ./tmp/postgres:/var/lib/postgresql/data
     environment:
       POSTGRES_PASSWORD: password
+    ports:
+      - '5432:5432'
 
   web:
     depends_on:
       - 'db'
       - 'redis'
-      - 'sidekiq'
     build: .
     command: sh ./docker-entrypoint.sh
     environment:
       PORT: 8080
+      RAILS_ENV: "development"
+      REDIS_URL: "redis://redis:6379/12"
     ports:
       - '3000:8080'
     volumes:
@@ -23,18 +26,23 @@ services:
 
   redis:
     image: redis
+    ports:
+      - '6379:6379'
     volumes:
-      - ../../tmp/db:/var/lib/redis/data
+      - 'redis:/data'
+
   sidekiq:
+    depends_on:
+      - 'db'
+      - 'redis'
     build: .
-    command: 'bundle exec sidekiq'
+    command: bundle exec sidekiq
     volumes:
-      - ./:/myapp
+      - '.:/myapp'
     environment:
       RAILS_ENV: "development"
       REDIS_URL: "redis://redis:6379/12"
-    depends_on:
-      - redis
+
 
 volumes:
   redis:
