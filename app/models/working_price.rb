@@ -1,2 +1,0 @@
-class WorkingPrice < ApplicationRecord
-end

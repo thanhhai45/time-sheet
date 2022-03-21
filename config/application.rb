@@ -10,6 +10,10 @@ module TimesheetEntry
   class Application < Rails::Application
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 6.1
+    config.autoload_paths += Dir["#{Rails.root}/app"]
+    config.eager_load_paths << Rails.root.join('lib')
+    config.time_zone = 'Hanoi'
+    config.active_record.default_timezone = :local
 
     # Configuration for the application, engines, and railties goes here.
     #
@@ -18,5 +22,8 @@ module TimesheetEntry
     #
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
+    config.action_view.field_error_proc = Proc.new { |html_tag, instance| 
+      html_tag.html_safe
+    }
   end
 end

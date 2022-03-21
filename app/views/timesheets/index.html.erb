@@ -1,31 +1,18 @@
-<p id="notice"><%= notice %></p>
-
+<%= link_to 'Create Timesheet Entry', new_timesheet_path, class: 'btn btn-success' %>
+<br>
+<% if notice.present? %>
+  <p class="alert alert-primary" id="notice"><%= notice %></p>
+<% end %>
 <h1>Timesheets</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Date of entry</th>
-      <th>Start time</th>
-      <th>Finish time</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
+<table class="table">
   <tbody>
     <% @timesheets.each do |timesheet| %>
       <tr>
-        <td><%= timesheet.date_of_entry %></td>
-        <td><%= timesheet.start_time %></td>
-        <td><%= timesheet.finish_time %></td>
-        <td><%= link_to 'Show', timesheet %></td>
-        <td><%= link_to 'Edit', edit_timesheet_path(timesheet) %></td>
-        <td><%= link_to 'Destroy', timesheet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+        <td><%= show_date_format(timesheet.date_of_entry) %>:</td>
+        <td><%= "#{show_time_format(timesheet.start_time)} - #{show_time_format(timesheet.finish_time)}" %></td>
+        <td><%= "$#{timesheet.total_price.round(2)}" %></td>
+     </tr>
     <% end %>
   </tbody>
 </table>
-
-<br>
-
-<%= link_to 'New Timesheet', new_timesheet_path %>

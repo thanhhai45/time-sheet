@@ -1,6 +1,6 @@
 require "test_helper"
 
-class WorkingPriceTest < ActiveSupport::TestCase
+class SyncEntryWorkingPriceJobTest < ActiveJob::TestCase
   # test "the truth" do
   #   assert true
   # end
