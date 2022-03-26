@@ -1,0 +1,9 @@
+#!/bin/bash -i
+echo -e '\n========== INSTALL GEMS 💎 ==========\n'
+bundle install
+
+echo -e '\n========== INSTALL YARN 🔗 ==========\n'
+yarn install --check-files
+
+echo -e '\n========== START SERVER 📡 ==========\n'
+foreman start
